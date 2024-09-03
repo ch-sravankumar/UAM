@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        .error-message {
+            color: red;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+        .input-group {
+            margin-bottom: 1rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        input[type='text'],
+        input[type='email'],
+        input[type='password'] {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 0.5rem 1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .login-link {
+            margin-top: 1rem;
+        }
+        .login-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        function validateForm(event) {
+            event.preventDefault(); // Prevent form submission
+            
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirmPassword').value;
+            var email = document.getElementById('email').value;
+            var errorMessages = [];
+
+            // Clear previous errors
+            document.getElementById('error-message').innerText = '';
+            document.getElementById('error').innerText = '';
+            
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                errorMessages.push("Passwords do not match.");
+            }
+
+            // Email validation
+            var emailPattern = /^[a-zA-Z._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+            if (!emailPattern.test(email)) {
+                errorMessages.push("Email must be in a valid format, e.g., example@example.com.");
+            }
+
+            // Display errors or submit the form
+            if (errorMessages.length > 0) {
+                document.getElementById('error').innerText = errorMessages.join(' ');
+            } else {
+                document.getElementById('registrationForm').submit();
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="background">
+        <div class="container">
+            <div class="form-container">
+                <h1>Register</h1>
+                <form id="registrationForm" action="webapi/myresource/Register" method="POST" onsubmit="validateForm(event)">
+                    <div class="input-group">
+                        <label for="firstname">First Name</label>
+                        <input type="text" id="firstname" name="firstname" required pattern="[a-zA-Z]+" title="First name should only contain letters." />
+                    </div>
+                    <div class="input-group">
+                        <label for="lastname">Last Name</label>
+                        <input type="text" id="lastname" name="lastname" required pattern="[a-zA-Z]+" title="Last name should only contain letters." />
+                    </div>
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required
+                               pattern="[a-zA-Z0-9._%+-]+@gmail\.com"
+                               title="Email must be in the format example@gmail.com and must be a valid Gmail address." />
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required
+                               pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
+                               title="Password must be at least 8 characters long, and include at least one uppercase letter, one lowercase letter, one number, and one special character (@, $, !, %, *, ?, &)." />
+                    </div>
+                    <div class="input-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required />
+                        <div id="error-message" class="error-message"></div>
+                    </div>
+                    <p id="error" class="error-message"></p>
+                    <button type="submit">Register</button>
+                </form>
+                <div class="login-link">
+                    <p>Already have an account?</p>
+                    <a href="index.jsp" class="login-btn">Login here</a>
+                </div>                
+            </div>           
+        </div>
+    </div>
+</body>
+</html>

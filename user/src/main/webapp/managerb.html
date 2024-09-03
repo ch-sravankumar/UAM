@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manager Dashboard</title>
+  <style>
+    /* General Styling */
+    body { 
+      font-family: Arial, sans-serif; 
+      margin: 0; 
+      padding: 0; 
+      background-color: #f4f7f9; 
+      color: #333; 
+    }
+
+    .container { 
+      max-width: 1300px; 
+      margin: 30px auto; 
+      background: #fff; 
+      padding: 20px; 
+      border-radius: 8px; 
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    }
+
+    .header { 
+      margin-bottom: 20px; 
+      text-align: center; 
+      padding-bottom: 20px;
+      border-bottom: 2px solid #007BFF;
+    }
+
+    .header h1 { 
+      font-size: 28px; 
+      color: #007BFF; 
+    }
+
+    .header p {
+      font-size: 18px;
+      color: #333;
+    }
+
+    .nav-bar {
+      margin-bottom: 20px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-bar a, .nav-bar button {
+      margin: 0 15px;
+      font-size: 18px;
+      color: #007BFF;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 6px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .nav-bar a:hover, .nav-bar button:hover {
+      background-color: #007BFF;
+      color: #fff;
+    }
+
+    .logout-button {
+      background-color: #dc3545;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .logout-button:hover {
+      background-color: #c82333;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background-color: #007BFF;
+      color: #fff;
+      padding: 40px 20px;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .hero-section h2 {
+      font-size: 36px;
+      margin: 0;
+    }
+
+    .hero-section p {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    /* Card Component */
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      font-size: 24px;
+      margin: 0 0 10px 0;
+      color: #007BFF;
+    }
+
+    .card p {
+      font-size: 16px;
+      color: #333;
+    }
+
+    /* Alert Boxes */
+    .alert {
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+
+    .alert.success {
+      background-color: #d4edda;
+      border: 1px solid #c3e6cb;
+      color: #155724;
+    }
+
+    .alert.error {
+      background-color: #f8d7da;
+      border: 1px solid #f5c6cb;
+      color: #721c24;
+    }
+
+    .alert.info {
+      background-color: #d1ecf1;
+      border: 1px solid #bee5eb;
+      color: #0c5460;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+      padding-top: 60px;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 5% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .error-message {
+            color: red;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+    .modal-header {
+      padding: 10px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .modal-body {
+      padding: 20px 0;
+    }
+
+    .modal-footer {
+      padding: 10px 0;
+      border-top: 1px solid #ddd;
+      text-align: right;
+    }
+
+    .modal-footer button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .modal-footer .close-btn {
+      background-color: #dc3545;
+      color: #fff;
+    }
+
+    .modal-footer .close-btn:hover {
+      background-color: #c82333;
+    }
+
+    .modal-footer .confirm-btn {
+      background-color: #28a745;
+      color: #fff;
+    }
+
+    .modal-footer .confirm-btn:hover {
+      background-color: #218838;
+    }
+
+    /* Additional Content */
+    .additional-content {
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      margin-top: 20px;
+    }
+
+    .additional-content h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #007BFF;
+    }
+
+    .additional-content p {
+      font-size: 16px;
+      color: #333;
+    }
+    .custom-table {
+  	width: 100%;
+  	border-collapse: collapse;
+  	margin-bottom: 20px;
+	}
+
+	.custom-table th, .custom-table td {
+  	padding: 12px;
+  	border: 1px solid #ddd;
+  	text-align: left;
+	}
+
+	.custom-table th {
+  	background-color: #007BFF;
+  	color: #fff;
+  	font-size: 18px;
+	}
+
+	.custom-table tr:nth-child(even) {
+  	background-color: #f9f9f9;
+	}
+
+	.custom-table tr:hover {
+  	background-color: #f1f1f1;
+	}
+  	</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Manager Manage Dashboard</h1>
+    </div>
+
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+      <a href="http://localhost:8542/user/manager.jsp" class="button">Home</a>
+      <!-- <a href="http://localhost:8542/user/index.jsp" class="button">Logout</a> -->
+    </div>
+
+    <!-- Additional Content Section -->
+    <div class="additional-content">
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       <p id="error" class="error-message"></p>
+    </div>
+  </div>
+</body>
+</html>

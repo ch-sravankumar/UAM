@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Info</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    p { font-size: 16px; }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #007BFF;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      text-align: center;
+    }
+    .button:hover { background-color: #0056b3; }
+  </style>
+</head>
+<body>
+  <p id="usernameParagraph"></p>
+  <a href="http://localhost:8542/user/index.jsp" class="button">Go to Login Page</a>
+
+  <script>
+    // Function to get query parameter by name
+    function getQueryParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+
+    // Get username from query parameter and display it
+    const username = getQueryParam('username');
+    if (username) {
+      document.getElementById('usernameParagraph').innerHTML = `Your Username is: <strong>${username}</strong>`;
+    } else {
+      document.getElementById('usernameParagraph').innerHTML = 'Username not found.';
+    }
+  </script>
+</body>
+</html>
